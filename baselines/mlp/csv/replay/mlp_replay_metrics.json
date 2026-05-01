@@ -1,0 +1,320 @@
+{
+  "a3_hysteresis_db": 3.0,
+  "a3_time_to_trigger_ms": 256.0,
+  "best_conservative_policy": {
+    "a3_gate_mode": "off",
+    "anti_ping_pong_window_s": 0.0,
+    "consecutive_confirmation_steps": 2,
+    "cooldown_s": 0.0,
+    "min_gain_rsrp_db": 1.0,
+    "min_score_margin": 0.0,
+    "name": "mlp_conservative_stage2_01_02",
+    "target_conf_threshold": 0.7,
+    "trigger_threshold": 0.85
+  },
+  "best_hybrid_policy": {
+    "a3_gate_mode": "strict",
+    "anti_ping_pong_window_s": 0.0,
+    "consecutive_confirmation_steps": 1,
+    "cooldown_s": 0.5,
+    "min_gain_rsrp_db": 1.0,
+    "min_score_margin": 0.0,
+    "name": "mlp_hybrid_stage2_01_05",
+    "target_conf_threshold": 0.7,
+    "trigger_threshold": 0.5
+  },
+  "candidate_top_k": 3,
+  "checkpoint_path": "<WORKSPACE>/MLP/checkpoints/wide_h256_d15_lr5e4_best_model.pt",
+  "dataset_dir": "<NS3_ROOT>/results_night/oran_e2_lstm/processed_candidate_e2_100ms_full",
+  "dataset_root": "<NS3_ROOT>/results_night_teacher_100ms",
+  "early_lead_threshold_s": 0.2,
+  "measurement_interval_ms": 100.0,
+  "model_config": {
+    "candidate_feature_dim": 5,
+    "cell_embedding_dim": 32,
+    "dropout": 0.15,
+    "hidden_size": 256,
+    "num_cells": 21,
+    "numeric_dim": 7,
+    "numeric_projection_dim": 64
+  },
+  "ping_pong_window_s": 5.0,
+  "seq_len": 15,
+  "stability_window_s": 5.0,
+  "test_split": "test",
+  "test_summaries": [
+    {
+      "decision_success_precision": 1.0,
+      "early_prediction_rate": 0.0,
+      "end_to_end_decision_success_rate": 1.0,
+      "handover_count": 10803,
+      "lead_time_bins": {
+        "0-0.2s": {
+          "count": 10803,
+          "rate_over_successful": 1.0
+        },
+        "0.2-0.5s": {
+          "count": 0,
+          "rate_over_successful": 0.0
+        },
+        "0.5-1.0s": {
+          "count": 0,
+          "rate_over_successful": 0.0
+        },
+        "1.0+s": {
+          "count": 0,
+          "rate_over_successful": 0.0
+        }
+      },
+      "mean_dwell_time_s": 11.10527503755284,
+      "mean_handover_count_per_ue": 72.02,
+      "missed_useful_handover_count": 0,
+      "model_name": "a3_original",
+      "ping_pong_count": 2893,
+      "ping_pong_rate": 0.26779598259742665,
+      "positive_segment_count": 10803,
+      "segment_count": 10953,
+      "skipped_positive_events_due_to_no_context": 0,
+      "std_handover_count_per_ue": 37.01467636852532,
+      "successful_handover_count": 10803,
+      "trigger_f1": 1.0,
+      "trigger_precision": 1.0,
+      "trigger_recall": 1.0,
+      "unnecessary_handover_count": 7320
+    },
+    {
+      "decision_success_precision": 0.30023770341927225,
+      "early_prediction_rate": 0.30389706562991764,
+      "end_to_end_decision_success_rate": 0.30398963250948813,
+      "handover_count": 10938,
+      "lead_time_bins": {
+        "0-0.2s": {
+          "count": 1,
+          "rate_over_successful": 0.0003045066991473812
+        },
+        "0.2-0.5s": {
+          "count": 43,
+          "rate_over_successful": 0.013093788063337393
+        },
+        "0.5-1.0s": {
+          "count": 381,
+          "rate_over_successful": 0.11601705237515225
+        },
+        "1.0+s": {
+          "count": 2859,
+          "rate_over_successful": 0.870584652862363
+        }
+      },
+      "mean_dwell_time_s": 9.286957599104685,
+      "mean_handover_count_per_ue": 72.92,
+      "missed_useful_handover_count": 7519,
+      "model_name": "mlp_current_k3",
+      "ping_pong_count": 476,
+      "ping_pong_rate": 0.14494518879415347,
+      "positive_segment_count": 10803,
+      "segment_count": 10953,
+      "skipped_positive_events_due_to_no_context": 0,
+      "std_handover_count_per_ue": 37.01216376634399,
+      "successful_handover_count": 3284,
+      "trigger_f1": 0.9937905340140748,
+      "trigger_precision": 0.9876577070762479,
+      "trigger_recall": 1.0,
+      "unnecessary_handover_count": 9688
+    },
+    {
+      "decision_success_precision": 0.7687796704831052,
+      "early_prediction_rate": 0.7500694251596779,
+      "end_to_end_decision_success_rate": 0.7645098583726743,
+      "handover_count": 10743,
+      "lead_time_bins": {
+        "0-0.2s": {
+          "count": 156,
+          "rate_over_successful": 0.01888848528877588
+        },
+        "0.2-0.5s": {
+          "count": 1306,
+          "rate_over_successful": 0.1581305242765468
+        },
+        "0.5-1.0s": {
+          "count": 3525,
+          "rate_over_successful": 0.4268071195059935
+        },
+        "1.0+s": {
+          "count": 3272,
+          "rate_over_successful": 0.39617387092868384
+        }
+      },
+      "mean_dwell_time_s": 12.115661949579646,
+      "mean_handover_count_per_ue": 71.62,
+      "missed_useful_handover_count": 2544,
+      "model_name": "mlp_conservative_k3",
+      "ping_pong_count": 2557,
+      "ping_pong_rate": 0.3096016466884611,
+      "positive_segment_count": 10803,
+      "segment_count": 10953,
+      "skipped_positive_events_due_to_no_context": 0,
+      "std_handover_count_per_ue": 36.52043628801095,
+      "successful_handover_count": 8259,
+      "trigger_f1": 0.9913673071567808,
+      "trigger_precision": 0.9941357162803686,
+      "trigger_recall": 0.9886142738128297,
+      "unnecessary_handover_count": 8058
+    },
+    {
+      "decision_success_precision": 0.8625140291806959,
+      "early_prediction_rate": 0.8057021197815422,
+      "end_to_end_decision_success_rate": 0.8536517633990558,
+      "handover_count": 10692,
+      "lead_time_bins": {
+        "0-0.2s": {
+          "count": 518,
+          "rate_over_successful": 0.05617002819345045
+        },
+        "0.2-0.5s": {
+          "count": 5056,
+          "rate_over_successful": 0.5482541747993928
+        },
+        "0.5-1.0s": {
+          "count": 2123,
+          "rate_over_successful": 0.23021036651485577
+        },
+        "1.0+s": {
+          "count": 1525,
+          "rate_over_successful": 0.165365430492301
+        }
+      },
+      "mean_dwell_time_s": 11.751170080361153,
+      "mean_handover_count_per_ue": 71.28,
+      "missed_useful_handover_count": 1581,
+      "model_name": "mlp_hybrid_a3_k3",
+      "ping_pong_count": 2686,
+      "ping_pong_rate": 0.2912600303621774,
+      "positive_segment_count": 10803,
+      "segment_count": 10953,
+      "skipped_positive_events_due_to_no_context": 0,
+      "std_handover_count_per_ue": 36.54661315817559,
+      "successful_handover_count": 9222,
+      "trigger_f1": 0.9918585717608747,
+      "trigger_precision": 0.9970071081182192,
+      "trigger_recall": 0.98676293622142,
+      "unnecessary_handover_count": 7674
+    }
+  ],
+  "training_args": {
+    "batch_size": 8192,
+    "candidate_top_k": 3,
+    "dataset_dir": "results_night/oran_e2_lstm/processed_candidate_e2_100ms_full",
+    "epochs": 6,
+    "evaluate_test_for_all": false,
+    "global_loss_weight": 0.2,
+    "max_test_rows": -1,
+    "max_train_rows": 1500000,
+    "max_val_rows": 500000,
+    "model_config": {
+      "candidate_feature_dim": 5,
+      "cell_embedding_dim": 32,
+      "dropout": 0.15,
+      "hidden_size": 256,
+      "num_cells": 21,
+      "numeric_dim": 7,
+      "numeric_projection_dim": 64
+    },
+    "output_dir": "results_night/oran_e2_lstm/mlp_sweeps/paper_val_selected_20260419_010927/wide_h256_d15_lr5e4",
+    "parameter_count": 180311,
+    "patience": 3,
+    "seed": 12345,
+    "selection_metric": "validation_balanced_score",
+    "target_loss_weight": 1.5,
+    "train_samples_per_epoch": 1200000,
+    "trigger_threshold": 0.7,
+    "variant": {
+      "cell_embedding_dim": 32,
+      "dropout": 0.15,
+      "hidden_size": 256,
+      "lr": 0.0005,
+      "name": "wide_h256_d15_lr5e4",
+      "numeric_projection_dim": 64,
+      "weight_decay": 0.0001
+    },
+    "variant_seed": 12349
+  },
+  "val_split": "val",
+  "validation_baseline_summary": {
+    "decision_success_precision": 0.29827188940092164,
+    "early_prediction_rate": 0.3019836639439907,
+    "end_to_end_decision_success_rate": 0.30210035005834307,
+    "handover_count": 8680,
+    "lead_time_bins": {
+      "0-0.2s": {
+        "count": 1,
+        "rate_over_successful": 0.0003862495171881035
+      },
+      "0.2-0.5s": {
+        "count": 34,
+        "rate_over_successful": 0.01313248358439552
+      },
+      "0.5-1.0s": {
+        "count": 311,
+        "rate_over_successful": 0.1201235998455002
+      },
+      "1.0+s": {
+        "count": 2243,
+        "rate_over_successful": 0.8663576670529162
+      }
+    },
+    "mean_dwell_time_s": 10.304830722939604,
+    "mean_handover_count_per_ue": 72.33333333333333,
+    "missed_useful_handover_count": 5981,
+    "model_name": "mlp_current_k3",
+    "ping_pong_count": 381,
+    "ping_pong_rate": 0.14716106604866744,
+    "positive_segment_count": 8570,
+    "segment_count": 8690,
+    "skipped_positive_events_due_to_no_context": 0,
+    "std_handover_count_per_ue": 38.216125159704795,
+    "successful_handover_count": 2589,
+    "trigger_f1": 0.9936231884057971,
+    "trigger_precision": 0.9873271889400922,
+    "trigger_recall": 1.0,
+    "unnecessary_handover_count": 7703
+  },
+  "validation_conservative_summary": {
+    "decision_success_precision": 0.7667604313173934,
+    "early_prediction_rate": 0.7451575262543757,
+    "end_to_end_decision_success_rate": 0.7633605600933488,
+    "handover_count": 8532,
+    "lead_time_bins": {
+      "0-0.2s": {
+        "count": 156,
+        "rate_over_successful": 0.023845918679302965
+      },
+      "0.2-0.5s": {
+        "count": 1035,
+        "rate_over_successful": 0.15820849892999084
+      },
+      "0.5-1.0s": {
+        "count": 2818,
+        "rate_over_successful": 0.4307551207581779
+      },
+      "1.0+s": {
+        "count": 2533,
+        "rate_over_successful": 0.3871904616325283
+      }
+    },
+    "mean_dwell_time_s": 12.471869238324574,
+    "mean_handover_count_per_ue": 71.1,
+    "missed_useful_handover_count": 2028,
+    "model_name": "mlp_conservative_k3",
+    "ping_pong_count": 2067,
+    "ping_pong_rate": 0.3159584225007643,
+    "positive_segment_count": 8570,
+    "segment_count": 8690,
+    "skipped_positive_events_due_to_no_context": 0,
+    "std_handover_count_per_ue": 37.69270486446946,
+    "successful_handover_count": 6542,
+    "trigger_f1": 0.9916968775581804,
+    "trigger_precision": 0.993905297702766,
+    "trigger_recall": 0.9894982497082847,
+    "unnecessary_handover_count": 6502
+  }
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "command_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run1.command.txt",
+    "end_time_wall": 1776539770.7036355,
+    "exit_code": 0,
+    "launch_time_wall": 1776534370.7009566,
+    "log_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run1.stdout.log",
+    "run": 1,
+    "run_dir": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run1-00001",
+    "status": "completed",
+    "wall_runtime_s": 5400.002678871155
+  },
+  {
+    "command_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run3.command.txt",
+    "end_time_wall": 1776545174.5534253,
+    "exit_code": 0,
+    "launch_time_wall": 1776539774.5506644,
+    "log_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run3.stdout.log",
+    "run": 3,
+    "run_dir": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run3-00001",
+    "status": "completed",
+    "wall_runtime_s": 5400.002760887146
+  },
+  {
+    "command_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run4.command.txt",
+    "end_time_wall": 1776550582.3288343,
+    "exit_code": 0,
+    "launch_time_wall": 1776545182.3261807,
+    "log_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run4.stdout.log",
+    "run": 4,
+    "run_dir": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run4-00001",
+    "status": "completed",
+    "wall_runtime_s": 5400.002653598785
+  },
+  {
+    "command_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run5.command.txt",
+    "end_time_wall": 1776555994.0438242,
+    "exit_code": 0,
+    "launch_time_wall": 1776550594.041256,
+    "log_path": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run5.stdout.log",
+    "run": 5,
+    "run_dir": "<NS3_ROOT>/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610/seed12345-run5-00001",
+    "status": "completed",
+    "wall_runtime_s": 5400.002568244934
+  }
+]

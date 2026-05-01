@@ -1,0 +1,13 @@
+{
+  "best_trigger_f1": 0.6889500511709707,
+  "best_trigger_precision": 0.7354554036423806,
+  "best_trigger_recall": 0.6479763006158475,
+  "best_trigger_threshold": 0.95,
+  "candidate_target_accuracy": 0.9088729698485796,
+  "candidate_topk_hit_rate": 0.9862345454035717,
+  "positive_rate": 0.07932884771636825,
+  "target_accuracy_positive": 0.896361920248208,
+  "trigger_f1": 0.5626003526780432,
+  "trigger_precision": 0.4026799359654181,
+  "trigger_recall": 0.9332193221004234
+}

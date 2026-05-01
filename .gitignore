@@ -1,0 +1,54 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ns-3 / build
+ns-allinone-*/
+build/
+cmake-cache/
+CMakeFiles/
+*.o
+*.so
+
+# Raw simulation outputs
+results_raw/
+raw_outputs/
+online_runs/
+*.tr
+*.pcap
+*.db
+*.sqlite
+oran-repository.db
+positions*.csv
+handover-*.csv
+Dl*.txt
+Ul*.txt
+Nr*.txt
+Rx*.txt
+Tx*.txt
+*Stats.txt
+
+# Heavy artifacts
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.parquet
+*.npy
+*.npz
+*.pt
+*.pth
+!baselines/mlp/checkpoints/wide_h256_d15_lr5e4_best_model.pt
+
+# Office/private/temp
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.pdf
+~$*
+.~lock.*
+.DS_Store
+.vscode/
