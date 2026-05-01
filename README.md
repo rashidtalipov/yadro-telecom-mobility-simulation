@@ -1,5 +1,87 @@
 # Predictive Mobility Management in LTE/O-RAN with ns-3 and LSTM
 
+## О проекте
+
+Публичный research package по проекту интеллектуального управления мобильностью в LTE / Open RAN-like сценарии.
+
+Проект отвечает на прикладной RAN-вопрос: может ли ML-контроллер использовать компактную радиотелеметрию для поддержки handover-решений и при этом балансировать стабильность мобильности и QoS.
+
+> Статус статьи: связанная работа **"Candidate-aware Long Short Term Memory Handover Control in a Simulated LTE Scenario with Open RAN"** принята на IEEE EDM 2026, UID 6217. Финальный PDF статьи, подписанные документы, письма конференции и скриншоты страниц статьи намеренно не включены в репозиторий.
+
+## Почему это релевантно YADRO
+
+Проект находится на стыке разработки и моделирования телеком-систем:
+
+- C++-сценарии `ns-3` для multi-cell LTE/O-RAN-like симуляций;
+- сбор RAN-телеметрии: `RSRP`, `RSRQ`, `SINR`, `BLER/TBLER`, throughput, delay, handover events;
+- Python/PyTorch pipeline для dataset preparation, training, replay и online inference;
+- candidate-aware LSTM для handover trigger и target-cell prediction;
+- MLP baseline для проверки вклада candidate-aware постановки;
+- online closed-loop проверка в симуляторе и сравнение с A3 baseline.
+
+## Краткая схема
+
+```mermaid
+flowchart LR
+    A[ns-3 LTE сценарий] --> B[RAN telemetry и HO traces]
+    B --> C[CSV / SQLite processing]
+    C --> D[Candidate-aware dataset]
+    D --> E[LSTM training]
+    D --> F[MLP baseline]
+    E --> G[Offline test и replay]
+    F --> G
+    G --> H[Online closed-loop ns-3 validation]
+    H --> I[Mobility и QoS metrics]
+```
+
+## Основные результаты
+
+Offline test для candidate-aware LSTM K=3:
+
+| Метрика | Значение |
+| --- | ---: |
+| Trigger F1 | 0.6888 |
+| Candidate target accuracy | 0.8967 |
+| Candidate macro-F1 | 0.8973 |
+| Candidate hit rate | 0.9862 |
+
+Final matched 900 s online summary over runs 1, 3, 5, and 6:
+
+| Режим | HO Count | Ping-Pong Rate | Mean Dwell (s) | DL Throughput (Mbps) |
+| --- | ---: | ---: | ---: | ---: |
+| A3 | 2329.50 | 0.2673 | 10.9621 | 33.8246 |
+| LSTM-only | 1477.50 | 0.1863 | 17.1526 | 31.4682 |
+| LSTM+A3 hybrid | 2441.75 | 0.2539 | 10.4093 | 34.0699 |
+
+Интерпретация:
+
+- `LSTM-only` снижает число handover и ping-pong, увеличивает среднее время пребывания в соте.
+- `LSTM+A3 hybrid` лучше сохраняет QoS/throughput и ближе к A3 по сервисным метрикам.
+- Главный вывод: меньше handover не всегда означает лучшее качество сервиса, поэтому модель нужно оценивать по нескольким телеком-метрикам одновременно.
+
+## Что смотреть в первую очередь
+
+1. [`scenarios/lte-oran-helper-lstm-hex7.cc`](scenarios/lte-oran-helper-lstm-hex7.cc) - интеграция online-контроллера в ns-3.
+2. [`src/oran_e2_lstm/model.py`](src/oran_e2_lstm/model.py) - candidate-aware LSTM.
+3. [`src/oran_e2_lstm/persistent_inference_worker.py`](src/oran_e2_lstm/persistent_inference_worker.py) - persistent Python inference worker.
+4. [`src/oran_e2_lstm/replay.py`](src/oran_e2_lstm/replay.py) - replay-анализ политик.
+5. [`baselines/mlp/README.md`](baselines/mlp/README.md) - MLP baseline.
+6. [`docs/YADRO_REVIEW_GUIDE_RU.md`](docs/YADRO_REVIEW_GUIDE_RU.md) - краткий гид на русском.
+
+## Что не включено
+
+Репозиторий намеренно сделан компактным. В него не включены:
+
+- финальный PDF статьи;
+- скриншоты или фрагменты страниц статьи;
+- экспертные заключения, договоры, подписи и печати;
+- письма конференции и переписка с рецензентами;
+- raw traces, SQLite databases, packet captures и полный `ns-3` tree.
+
+---
+
+## English Overview
+
 Public research package for an AI-assisted mobility management project in a simulated LTE / Open RAN-like scenario.
 
 The project asks a practical RAN question: can a learned controller use compact radio telemetry to support handover decisions while balancing mobility stability and QoS?
