@@ -871,7 +871,7 @@ def rank_predictive_modes(
         ignore_index=True,
     )
     selection = {
-        "main_paper_result": predictive.iloc[0].to_dict(),
+        "main_result": predictive.iloc[0].to_dict(),
         "stability_first_variant": predictive.sort_values(
             ["stability_score", "balanced_score", "mode"],
             ascending=[False, False, True],
@@ -1001,7 +1001,7 @@ def render_directional_table_latex(
     return "\n".join(lines) + "\n"
 
 
-def write_paper_tables(summary: pd.DataFrame, reports_root: Path) -> None:
+def write_result_tables(summary: pd.DataFrame, reports_root: Path) -> None:
     ordered_modes = ["a3", "lstm_only", "lstm_hybrid"]
     summary_indexed = summary.set_index("mode", drop=False) if not summary.empty else pd.DataFrame()
     available = [mode for mode in ordered_modes if not summary.empty and mode in summary_indexed.index]
@@ -1064,19 +1064,19 @@ def write_paper_tables(summary: pd.DataFrame, reports_root: Path) -> None:
         ("blocked_by_anti_ping_pong", "Blocked Anti-PP", "min"),
     ]
 
-    (reports_root / "paper_final_results_table.md").write_text(
+    (reports_root / "final_results_table.md").write_text(
         render_directional_table_markdown(main_frame, main_columns),
         encoding="utf-8",
     )
-    (reports_root / "paper_final_results_table.tex").write_text(
+    (reports_root / "final_results_table.tex").write_text(
         render_directional_table_latex(main_frame, main_columns),
         encoding="utf-8",
     )
-    (reports_root / "paper_runtime_table.md").write_text(
+    (reports_root / "runtime_table.md").write_text(
         render_directional_table_markdown(runtime_frame, runtime_columns),
         encoding="utf-8",
     )
-    (reports_root / "paper_runtime_table.tex").write_text(
+    (reports_root / "runtime_table.tex").write_text(
         render_directional_table_latex(runtime_frame, runtime_columns),
         encoding="utf-8",
     )
@@ -1095,12 +1095,12 @@ def write_docs_bundle(
         a3_row = None
 
     predictive = summary[summary["mode"] != "a3"] if not summary.empty else pd.DataFrame()
-    main_result = selection.get("main_paper_result", {})
+    main_result = selection.get("main_result", {})
     stability_result = selection.get("stability_first_variant", {})
     main_label = MODE_LABELS.get(main_result.get("mode", ""), "pending") if main_result else "pending"
     stability_label = MODE_LABELS.get(stability_result.get("mode", ""), "pending") if stability_result else "pending"
 
-    methodology_notes = f"""# Paper Methodology Notes
+    methodology_notes = f"""# Methodology Notes
 
 ## Research Objective
 
@@ -1112,7 +1112,7 @@ The study evaluates whether a candidate-aware LSTM mobility controller can impro
 
 ## Final Experiment Logic
 
-The final paper-quality comparison uses a matched run design. All compared modes share the same topology, traffic, UE population, mobility configuration, radio setup, and simulation duration. Only the mobility-control path changes.
+The final report-quality comparison uses a matched run design. All compared modes share the same topology, traffic, UE population, mobility configuration, radio setup, and simulation duration. Only the mobility-control path changes.
 
 - Matched runs selected for the final long study: `{", ".join(str(run) for run in args.runs)}`
 - Simulation duration: `{args.sim_time:.0f} s`
@@ -1121,13 +1121,13 @@ The final paper-quality comparison uses a matched run design. All compared modes
 
 ## Selection Philosophy
 
-The final selection is not based on a single KPI. The main paper result should favor balanced mobility stability and QoS/QoE preservation, while the stability-first variant should emphasize low ping-pong and long dwell time. The report generated from the final long runs is the authoritative source for the final operating-point choice.
+The final selection is not based on a single KPI. The main result should favor balanced mobility stability and QoS/QoE preservation, while the stability-first variant should emphasize low ping-pong and long dwell time. The report generated from the final long runs is the authoritative source for the final operating-point choice.
 
-- Current main-paper operating point: `{main_label}`
+- Current main operating point: `{main_label}`
 - Current stability-first operating point: `{stability_label}`
 """
 
-    experiment_setup = f"""# Paper Experiment Setup
+    experiment_setup = f"""# Experiment Setup
 
 ## Simulation Scenario
 
@@ -1157,10 +1157,10 @@ The final long-run results are stored in a dedicated root:
 
 ## Matched Comparison Policy
 
-The final paper experiments reuse matched `900 s` A3 baselines if they already exist. This avoids unnecessary reruns and preserves direct comparability with the new LSTM-based online runs. In the current setup the matched A3 baselines were reused, not rerun.
+The final report experiments reuse matched `900 s` A3 baselines if they already exist. This avoids unnecessary reruns and preserves direct comparability with the new LSTM-based online runs. In the current setup the matched A3 baselines were reused, not rerun.
 """
 
-    dataset_training = """# Paper Dataset and Training
+    dataset_training = """# Dataset and Training
 
 ## Training Data Sources
 
@@ -1244,13 +1244,13 @@ Per-cycle Python process spawning was removed because it was too expensive for c
 
     if a3_row is not None and not predictive.empty:
         result_lines = [
-            "# Paper Results Interpretation",
+            "# Results Interpretation",
             "",
             "## Current Final-Run Interpretation",
             "",
             f"- Reused A3 baseline aggregate ping-pong rate: `{float(a3_row['ping_pong_rate_mean']):.4f}`",
             f"- Reused A3 baseline mean dwell time: `{float(a3_row['mean_dwell_time_s_mean']):.2f} s`",
-            f"- Current main paper result candidate: `{main_label}`",
+            f"- Current main result candidate: `{main_label}`",
             f"- Current stability-first candidate: `{stability_label}`",
             "",
             "## Interpretation Guidance",
@@ -1266,7 +1266,7 @@ Per-cycle Python process spawning was removed because it was too expensive for c
         ]
         results_interpretation = "\n".join(result_lines) + "\n"
     else:
-        results_interpretation = """# Paper Results Interpretation
+        results_interpretation = """# Results Interpretation
 
 The final `900 s` long-run interpretation will be written from the generated `final_900s_vs_a3_report.md` once the matched LSTM-only and LSTM+A3 runs complete. Until then, the interpretation should rely on the already validated short-run and `300 s` findings:
 
@@ -1276,11 +1276,11 @@ The final `900 s` long-run interpretation will be written from the generated `fi
 - persistent-worker deployment is required for practical long closed-loop runs
 """
 
-    (reports_root / "paper_methodology_notes.md").write_text(methodology_notes, encoding="utf-8")
-    (reports_root / "paper_experiment_setup.md").write_text(experiment_setup, encoding="utf-8")
-    (reports_root / "paper_dataset_and_training.md").write_text(dataset_training, encoding="utf-8")
-    (reports_root / "paper_model_and_policy.md").write_text(model_policy, encoding="utf-8")
-    (reports_root / "paper_results_interpretation.md").write_text(results_interpretation, encoding="utf-8")
+    (reports_root / "methodology_notes.md").write_text(methodology_notes, encoding="utf-8")
+    (reports_root / "experiment_setup.md").write_text(experiment_setup, encoding="utf-8")
+    (reports_root / "dataset_and_training.md").write_text(dataset_training, encoding="utf-8")
+    (reports_root / "model_and_policy.md").write_text(model_policy, encoding="utf-8")
+    (reports_root / "results_interpretation.md").write_text(results_interpretation, encoding="utf-8")
 
 
 def build_final_report(
@@ -1353,7 +1353,7 @@ def build_final_report(
         )
 
     if selection:
-        main_label = MODE_LABELS.get(selection["main_paper_result"]["mode"], selection["main_paper_result"]["mode"])
+        main_label = MODE_LABELS.get(selection["main_result"]["mode"], selection["main_result"]["mode"])
         stability_label = MODE_LABELS.get(
             selection["stability_first_variant"]["mode"],
             selection["stability_first_variant"]["mode"],
@@ -1427,7 +1427,7 @@ def build_final_report(
         "- The final report should state explicitly whether `LSTM-only` beats `A3` on mobility stability.",
         "- The final report should state explicitly whether `LSTM+A3 hybrid` beats `A3` on mobility stability.",
         "- QoS/QoE conclusions should separate `DL` and `UL` effects instead of collapsing them into one score.",
-        f"- Current main paper result: `{main_label}`",
+        f"- Current main result: `{main_label}`",
         f"- Current stability-first variant: `{stability_label}`",
         "",
         "## Job Status",
@@ -1499,7 +1499,7 @@ def generate_reports(
 
     make_plots(summary, reports_root / "final_900s_plots.png")
     build_final_report(args, reports_root, per_run, summary, predictive_ranking, selection, jobs, baseline_reused=True)
-    write_paper_tables(summary, reports_root)
+    write_result_tables(summary, reports_root)
     write_docs_bundle(args, reports_root, summary, selection, baseline_reused=True)
     write_best_policy_json(reports_root, args, selection, baseline_reused=True)
     log_line(log_path, f"reports_refreshed completed_jobs={len([job for job in jobs if job.status == 'completed' and job.exit_code == 0])}")

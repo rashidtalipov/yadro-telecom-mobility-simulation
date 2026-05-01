@@ -53,5 +53,4 @@ The following are intentionally excluded:
 - SQLite `*.db` / `*.sqlite` files;
 - full ns-3 source tree and build products;
 - large result folders;
-- private publication documents and final paper PDFs.
-
+- private documents.

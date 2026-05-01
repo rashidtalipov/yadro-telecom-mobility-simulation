@@ -219,7 +219,7 @@
       "numeric_dim": 7,
       "numeric_projection_dim": 64
     },
-    "output_dir": "results_night/oran_e2_lstm/mlp_sweeps/paper_val_selected_20260419_010927/wide_h256_d15_lr5e4",
+    "output_dir": "results_night/oran_e2_lstm/mlp_sweeps/final_val_selected_20260419_010927/wide_h256_d15_lr5e4",
     "parameter_count": 180311,
     "patience": 3,
     "seed": 12345,

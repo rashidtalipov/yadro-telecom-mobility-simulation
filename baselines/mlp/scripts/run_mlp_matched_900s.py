@@ -32,12 +32,12 @@ DEFAULT_WORKER_PYTHON = PROJECT_ROOT / "results_night/.venv/bin/python"
 DEFAULT_WORKER_SCRIPT = SCRIPT_DIR / "persistent_mlp_worker.py"
 DEFAULT_CHECKPOINT = (
     SCRIPT_DIR
-    / "mlp_sweeps/paper_val_selected_20260419_010927/wide_h256_d15_lr5e4/best_model.pt"
+    / "mlp_sweeps/final_val_selected_20260419_010927/wide_h256_d15_lr5e4/best_model.pt"
 )
 
 ARTICLE_REFERENCE_ROWS = [
     {
-        "policy": "A3 article mean",
+        "policy": "A3 reference mean",
         "runs": "1,3,4,5",
         "handover_count": 2329.50,
         "ping_pong_rate": 0.2673,
@@ -51,7 +51,7 @@ ARTICLE_REFERENCE_ROWS = [
         "ul_delay_mean_ms": 2782.2,
     },
     {
-        "policy": "LSTM-only article mean",
+        "policy": "LSTM-only reference mean",
         "runs": "1,3,4,5",
         "handover_count": 1477.50,
         "ping_pong_rate": 0.1863,
@@ -65,7 +65,7 @@ ARTICLE_REFERENCE_ROWS = [
         "ul_delay_mean_ms": 4341.0,
     },
     {
-        "policy": "Hybrid LSTM+A3 article mean",
+        "policy": "Hybrid LSTM+A3 reference mean",
         "runs": "1,3,4,5",
         "handover_count": 2441.75,
         "ping_pong_rate": 0.2539,
@@ -249,7 +249,7 @@ def run_one(args: argparse.Namespace, run: int) -> dict[str, Any]:
     }
 
 
-def article_comparison(summary: pd.DataFrame) -> pd.DataFrame:
+def reference_comparison(summary: pd.DataFrame) -> pd.DataFrame:
     rows = list(ARTICLE_REFERENCE_ROWS)
     if not summary.empty:
         mlp = summary[summary["mode"] == MODE_NAME]
@@ -312,14 +312,14 @@ def write_report(
 
     per_run_path = reports_root / "mlp_matched_per_run.csv"
     summary_path = reports_root / "mlp_matched_summary.csv"
-    comparison_path = reports_root / "mlp_vs_article_reference.csv"
+    comparison_path = reports_root / "mlp_vs_reference.csv"
     state_path = reports_root / "run_state.json"
     report_path = reports_root / "MLP_MATCHED_ONLINE_900S_REPORT.md"
 
     per_run.to_csv(per_run_path, index=False)
     summary.to_csv(summary_path, index=False)
     save_json(state_path, run_states)
-    comparison = article_comparison(summary)
+    comparison = reference_comparison(summary)
     comparison.to_csv(comparison_path, index=False)
 
     per_run_columns = [

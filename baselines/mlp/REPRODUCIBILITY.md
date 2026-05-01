@@ -37,8 +37,8 @@ build/scratch/ns3.46.1-lte-oran-helper-lstm-only-hex7-optimized
 ```bash
 results_night/.venv/bin/python results_night/oran_e2_lstm/mlp_sweep.py \
   --dataset-dir results_night/oran_e2_lstm/processed_candidate_e2_100ms_full \
-  --output-dir results_night/oran_e2_lstm/mlp_sweeps/paper_val_selected_20260419_010927 \
-  --variant-set paper \
+  --output-dir results_night/oran_e2_lstm/mlp_sweeps/final_val_selected_20260419_010927 \
+  --variant-set full \
   --candidate-top-k 3 \
   --device auto \
   --seed 12345 \
@@ -84,7 +84,7 @@ actual worker and checkpoint were MLP:
 
 ```text
 --lstmInferenceScript=.../results_night/oran_e2_lstm/persistent_mlp_worker.py
---lstmCheckpointPath=.../mlp_sweeps/paper_val_selected_20260419_010927/wide_h256_d15_lr5e4/best_model.pt
+--lstmCheckpointPath=.../mlp_sweeps/final_val_selected_20260419_010927/wide_h256_d15_lr5e4/best_model.pt
 ```
 
 The checkpoint itself contains:
@@ -123,4 +123,3 @@ or the original path:
 ```text
 ns-allinone-3.46.1/ns-3.46.1/results_night/oran_e2_lstm/online_runs/mlp_val_selected_matched_900s_20260419_014610
 ```
-

@@ -59,7 +59,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dataset-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--candidate-top-k", type=int, default=3, choices=(3, 5))
-    parser.add_argument("--variant-set", choices=("smoke", "quick", "paper"), default="quick")
+    parser.add_argument("--variant-set", choices=("smoke", "quick", "full"), default="quick")
     parser.add_argument("--device", type=str, default="auto")
     parser.add_argument("--seed", type=int, default=12345)
     parser.add_argument("--batch-size", type=int, default=8192)
@@ -93,7 +93,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "--evaluate-test-for-all",
         action="store_true",
         help=(
-            "Evaluate every variant on the test set. Disabled by default so paper-grade runs "
+            "Evaluate every variant on the test set. Disabled by default so full evaluation runs "
             "select by validation and touch the test set only for the selected variant."
         ),
     )
@@ -556,7 +556,7 @@ def write_report(
         "",
         "The selected MLP should be treated as a lightweight non-recurrent baseline. It tests whether",
         "the candidate-aware formulation can work without an LSTM history. If the best MLP approaches",
-        "the LSTM trigger and target metrics, the paper should emphasize that candidate-aware target",
+        "the LSTM trigger and target metrics, the report should emphasize that candidate-aware target",
         "restriction is a major contributor. If it underperforms the LSTM on trigger calibration or",
         "online stability, the LSTM remains justified as the main online controller.",
         "",

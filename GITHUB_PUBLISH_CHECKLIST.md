@@ -17,7 +17,7 @@ Yadro/github/not_for_github
 Run from `Yadro/github/oran-lstm-handover`:
 
 ```bash
-rg "/home/|/media/|@|local-user-name|passport|signature|stamp|contract|expert|edm.nstu|yandex.ru" .
+rg "/home/|/media/|@|local-user-name|passport|signature|stamp|contract|expert|yandex.ru" .
 find . -type f -size +20M -print
 find . -type f \( -iname "*.pdf" -o -iname "*.doc" -o -iname "*.docx" -o -iname "*.ppt" -o -iname "*.pptx" \) -print
 ```
@@ -26,9 +26,7 @@ Expected:
 
 - no private local paths;
 - no personal documents;
-- no final article PDF;
 - no signed expert conclusions;
-- no article screenshots;
 - no raw traces or databases;
 - no files larger than 20 MB.
 
@@ -70,4 +68,3 @@ Open the repository page and check:
 ## License
 
 Choose the final license before making long-term public claims. The C++ scenario files depend on ns-3, so check ns-3 license compatibility.
-

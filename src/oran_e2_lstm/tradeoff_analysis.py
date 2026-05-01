@@ -244,7 +244,7 @@ def rank_operating_points(operating_points: pd.DataFrame) -> pd.DataFrame:
     ]
 
     ranked["recommendation_role"] = ""
-    ranked.loc[ranked["model_name"] == best_balanced, "recommendation_role"] = "main_paper_result"
+    ranked.loc[ranked["model_name"] == best_balanced, "recommendation_role"] = "main_result"
     ranked.loc[ranked["model_name"] == best_stability, "recommendation_role"] = np.where(
         ranked.loc[ranked["model_name"] == best_stability, "recommendation_role"].eq(""),
         "stability_first_variant",
@@ -383,12 +383,12 @@ def plot_tradeoffs(
 
 def recommendation_lines(summary: pd.DataFrame) -> list[str]:
     indexed = summary.set_index("model_name")
-    balanced = summary[summary["recommendation_role"].str.contains("main_paper_result", regex=False, na=False)].iloc[0]
+    balanced = summary[summary["recommendation_role"].str.contains("main_result", regex=False, na=False)].iloc[0]
     stability = summary[summary["recommendation_role"].str.contains("stability_first_variant", regex=False, na=False)].iloc[0]
     early = summary[summary["recommendation_role"].str.contains("early_action_variant", regex=False, na=False)].iloc[0]
 
     return [
-        f"- Main paper result: `{balanced['model_name']}` because it keeps the strongest overall balance between success, early prediction, and stability among predictive policies.",
+        f"- Main result: `{balanced['model_name']}` because it keeps the strongest overall balance between success, early prediction, and stability among predictive policies.",
         f"- Stability-first variant: `{stability['model_name']}` because it minimizes ping-pong and unnecessary handovers most aggressively.",
         f"- Future online O-RAN tests: `{early['model_name']}` because it best preserves the predictive early-action value while staying stronger than `current_k3` on replay quality.",
         f"- Dominated operating point: `current_k3` is dominated by `conservative_k3` on the final test operating points.",
@@ -451,7 +451,7 @@ def render_report(
         "",
         "## Paper Guidance",
         "",
-        "- Main paper result should be the balanced predictive policy, not the logged A3 baseline.",
+        "- Main result should be the balanced predictive policy, not the logged A3 baseline.",
         "- Stability-first variant should be reported as a separate operating point rather than replacing the main predictive result.",
         "- Future online O-RAN tests should start from the balanced predictive policy, with the stability-first hybrid policy as a guarded alternative for risk-sensitive studies.",
         "",

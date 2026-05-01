@@ -1,6 +1,6 @@
 # Final 900 s Combined Results for Runs 1, 3, 5, and 6
 
-This file consolidates the final long-run numbers most useful for updating the article tables after the second matched batch completed.
+This file consolidates the final long-run numbers from the expanded matched evaluation.
 
 ## Aggregate 4-Run Summary
 
